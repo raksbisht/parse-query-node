@@ -80,7 +80,9 @@ query.table('<YourTableName>');
 Adds basic equality and comparison conditions to the query.
  ```javascript 
 query.where('fieldName', '=', 'value')  
-.where('otherField', '>', 10);
+      .where('otherField', 10)
+      .where({name:"test"})
+      .where([['field1', '>', 10], ['field2', '=', 'value']]);
 ``` 
 ### Include Related Fields
 Includes related fields in the query result.
@@ -93,34 +95,44 @@ query.with('relatedField1', 'relatedField2');
 #### Joining with Pointer
 Adds a condition to join with a Pointer field.
  ```javascript 
-query.whereJoinKey('pointerFieldName', 'PointerClassName', 'PointerObjectId');
+query.whereJoinKey('foreignkeyname', 'foreignkeyValue', 'ForeignTableName');
 ``` 
 ### In Query
 Adds a condition to check if a field matches any value in a subquery.
  ```javascript 
-query.whereJoinInQuery('field', conditionsArray, 'RelatedClassName');
+query.whereJoinInQuery('foreignkeyname', [
+    ['score', '>', 90],
+    ['level', '=', 'advanced'],
+], 'ForeignTableName');
 ``` 
 ### Not In Query
 Adds a condition to check if a field does not match any value in a subquery.
  ```javascript 
-query.whereJoinNotInQuery('field', conditionsArray, 'RelatedClassName');
+query.whereJoinNotInQuery('foreignkeyname', [
+    ['score', '>', 90],
+    ['level', '=', 'advanced'],
+], 'ForeignTableName');
 ``` 
 ### Related To
 Adds a condition to retrieve objects related to a specific parent object.
- ```javascript 
-query.whereRelatedTo('ParentClassName', 'ParentObjectId', 'RelationKey');
+
+#### For example :
+Imagine you have a Post class and User class, where each Post can be liked by many users. If the Users that liked a Post were stored in a Relation on the post under the key “likes”, you can find the users that liked a particular post by: 
+```javascript
+//query.whereRelatedTo('Post', '1', 'likes');
+query.whereRelatedTo('ForeignTableName', 'ForeignTableObjectId', 'foreignkeyname'); 
 ``` 
 
 ### Where In
 Adds a condition to check if a field matches any value in a given array.
  ```javascript 
-query.whereIn('field', values);
+query.whereIn('field', [1,3,5,7,9]);
 ``` 
 
 ### Where Not In
 Adds a condition to check if a field does not match any value in a given array.
  ```javascript 
-query.whereNotIn('field', values);
+query.whereNotIn('field', [1,3,5,7,9]);
 ``` 
 
 ### Where Exists
@@ -138,13 +150,13 @@ query.whereNotExists('field');
 ### Where Contains All
 Adds a condition to check if a field contains all specified values.
  ```javascript 
-query.whereContainsAll('field', values);
+query.whereContainsAll('field', [2,3,4]);
 ``` 
 
 ### Where Contains
 Adds a condition to check if a field contains a specific value.
  ```javascript 
-query.whereContains('field', value);
+query.whereContains('field', 2);
 ``` 
 
 ### Where Full Text Search (Requires Parse-Server 2.5.0+)
@@ -158,7 +170,11 @@ query.whereFullText('fieldName', 'searchTerm');
 ### Insert Data
 Inserts data into the specified Table.
  ```javascript 
-query.insert({ key: 'value' });
+query.insert({name: 'Alice', age: 30 });
+query.insert([
+    { name: 'Alice', age: 30, city: 'San Francisco' },
+    { name: 'Bob', age: 28, city: 'Los Angeles' },
+]);
 ``` 
 
 ### Update Data

@@ -15,7 +15,7 @@ class ParseQuery {
     this.data = [];
     this.selectFields = [];
     this.exceptFields = [];
-    this.whereConditions = [];
+    this.whereConditions = {};
     this.includeFields = [];
     this.distinctFields = [];
 
@@ -53,11 +53,10 @@ class ParseQuery {
     } else {
       this.handleCondition(field, operatorOrValue, value);
     }
-
     return this;
   }
 
-  whereJoinKey(fieldName, pointerClassName, pointerObjectId) {
+  whereJoinKey(fieldName, pointerObjectId, pointerClassName) {
     const foreignKeyCondition = {
       [fieldName]: {
         __type: 'Pointer',
@@ -312,7 +311,7 @@ class ParseQuery {
    }
    if (this.includeFields.length > 0) {
     params.include = this.includeFields.join(',');
-  }
+   }
 
     this.data = {
       method: 'GET',
@@ -362,7 +361,6 @@ class ParseQuery {
     this.data = {
       method: 'DELETE',
       path:`/parse/classes/${this.className}/${objectId}`,
-
     //  path: objectId ? `/parse/classes/${this.className}/${objectId}` :`/parse/classes/${this.className}`,
     };
     return this.execute();
