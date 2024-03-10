@@ -17,8 +17,9 @@ class ParseQuery {
     this.exceptFields = [];
     this.whereConditions = [];
     this.includeFields = [];
+    this.distinctFields = [];
+
     this.fullTextSearchField = null;
-    this.countParam = 0; // Initialize countParam
 
     this.operators = {
         '<': '$lt',
@@ -52,7 +53,7 @@ class ParseQuery {
     } else {
       this.handleCondition(field, operatorOrValue, value);
     }
-  
+
     return this;
   }
 
@@ -96,7 +97,7 @@ class ParseQuery {
     return conditions.map(condition => {
         const [field, operator, value] = condition;
         const resolvedOperator = this.operators[operator] || operator;
-  
+
         if (resolvedOperator && value !== undefined) {
           return { [field]: { [resolvedOperator]: value } };
         } else {
@@ -150,11 +151,11 @@ class ParseQuery {
     if (this.parseServerVersion < '2.5.0') {
         throw new Error('Full-text search is only supported starting with Parse-Server 2.5.0');
       }
-  
+
       if (!field || typeof field !== 'string') {
         throw new Error('Field must be a non-empty string');
       }
-  
+
       if (!searchTerm || typeof searchTerm !== 'string') {
         throw new Error('Search term must be a non-empty string');
       }
@@ -169,7 +170,7 @@ class ParseQuery {
     return this;
   }
 
-  
+
   with(...relationFields) {
     this.includeFields.push(...relationFields);
     return this;
@@ -229,7 +230,7 @@ class ParseQuery {
     }
     return this.execute();
   }
-  distinct(fields) {
+  distinct(...fields) {
     if (this.parseServerVersion < '2.7.0') {
         throw new Error('Distinct is only supported starting with Parse-Server 2.7.0');
       }
@@ -239,7 +240,7 @@ class ParseQuery {
         params.where = JSON.stringify(this.whereConditions);
     }
 
-    params.include=fields;
+    params.distinct=fields.join(',');
 
     this.data = {
       method: 'GET',
@@ -290,7 +291,7 @@ class ParseQuery {
     // Finally, execute the query
     return this.getAll();
   }
-  
+
   getAll() {
     const params = {
       order: this.orderBy,
@@ -306,7 +307,7 @@ class ParseQuery {
       params.excludeKeys = this.parseServerVersion >= '5.0.0' ? this.exceptFields : this.exceptFields.join(',');
     }
     if (Object.keys(this.whereConditions).length > 0) {
-   
+
         params.where = JSON.stringify(this.whereConditions);
    }
    if (this.includeFields.length > 0) {
