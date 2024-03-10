@@ -1,7 +1,7 @@
-# parse-query
-[![GitHub issues](https://img.shields.io/github/issues/raksbisht/parse-query)](https://github.com/raksbisht/parse-query/issues)
-[![GitHub stars](https://img.shields.io/github/stars/raksbisht/parse-query)](https://github.com/raksbisht/parse-query/stargazers)
-[![GitHub license](https://img.shields.io/github/license/raksbisht/parse-query)](https://github.com/raksbisht/parse-query/blob/main/LICENSE)
+# parse-query-node
+[![GitHub issues](https://img.shields.io/github/issues/raksbisht/parse-query-node)](https://github.com/raksbisht/parse-query-node/issues)
+[![GitHub stars](https://img.shields.io/github/stars/raksbisht/parse-query-node)](https://github.com/raksbisht/parse-query-node/stargazers)
+[![GitHub license](https://img.shields.io/github/license/raksbisht/parse-query-node)](https://github.com/raksbisht/parse-query-node/blob/main/LICENSE)
 
 
 A Parse Platform REST API utility and query builder for the Parse Platform SDK for Node. Simplify and enhance your queries with ease using this powerful query builder, leveraging the Parse Platform REST API.
@@ -9,14 +9,14 @@ A Parse Platform REST API utility and query builder for the Parse Platform SDK f
 
 ## Installation
 ```bash  
-npm install parse-query
+npm install parse-query-node
 ```   
 ## Usage  
   
 
 ```javascript
   
-const ParseQuery = require('parse-query');  
+const ParseQuery = require('parse-query-node');  
   
 // Example initialization    
 const query = new ParseQuery(
@@ -47,7 +47,7 @@ The ParseQuery provides a convenient way to construct queries for Parse Server.
 ## Initialization
 Initializes a new ParseQuery object with the specified Parse Server configuration parameters.
 ```javascript
-const ParseQuery = require('parse-query');
+const ParseQuery = require('parse-query-node');
 
 // Initialize ParseQuery with required parameters
 const query = new ParseQuery(
@@ -311,6 +311,6 @@ This package is open-source and available under the MIT License.
 
 ## Issues and Contributions
 
-If you encounter any issues or have suggestions for improvements, please feel free to open an issue on the GitHub repository: [Link to GitHub Repository](https://github.com/raksbisht/parse-query)
+If you encounter any issues or have suggestions for improvements, please feel free to open an issue on the GitHub repository: [Link to GitHub Repository](https://github.com/raksbisht/parse-query-node)
 
 Contributions and pull requests are welcome!
