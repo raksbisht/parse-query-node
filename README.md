@@ -292,17 +292,6 @@ query.select('field1', 'field2');
 Excludes specific fields from the query result.
  ```javascript 
 query.except('field1', 'field2');
-``` 
-## Execution
-### Execute Query
-Executes the constructed query and returns the result.
- ```javascript
-try {
-    const result = await query.execute();
-    console.log(result);
-} catch (error) {
-    console.error(error);
-}
 ```
 
 ## License

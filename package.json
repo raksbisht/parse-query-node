@@ -1,6 +1,6 @@
 {
   "name": "parse-query-node",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A Parse Platform REST API utility and query builder for the Parse Platform SDK for Node - Simplify and enhance your queries with ease using this powerful query builder, leveraging the Parse Platform REST API.",
   "keywords": [
     "parse",
